@@ -6,6 +6,7 @@ import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.KeskustelualueDao;
+import tikape.runko.database.ViestiDao;
 import tikape.runko.database.ViestiketjuDao;
 
 public class Main {
@@ -15,8 +16,8 @@ public class Main {
         database.init();
 
         KeskustelualueDao keskustelualueDao = new KeskustelualueDao(database);
-        ViestiketjuDao viestiketjuDao = new ViestiketjuDao(database);
-        //ViestiDao viestiDao = new ViestiDao(database);
+        ViestiketjuDao viestiketjuDao = new ViestiketjuDao(database, keskustelualueDao);
+        ViestiDao viestiDao = new ViestiDao(database, viestiketjuDao);
 
         System.out.println(keskustelualueDao.countViestit(1));
         

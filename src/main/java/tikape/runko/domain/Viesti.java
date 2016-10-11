@@ -17,14 +17,14 @@ public class Viesti {
     private String sisalto;
     private Timestamp aika;
     private String lahettaja;
-    //private Viestiketju viestiketju;
+    private Viestiketju viestiketju;
     
-    public Viesti(Integer id, String sisalto, String lahettaja, Timestamp aika) {//+viestiketju
+    public Viesti(Integer id, String sisalto, String lahettaja, Timestamp aika, Viestiketju viestiketju) {//+viestiketju
         this.id = id;
         this.sisalto = sisalto;
         this.lahettaja = lahettaja;
         this.aika = aika;
-        //this.viestiketju = viestiketju;
+        this.viestiketju = viestiketju;
     }
     
     public String getSisalto() {
@@ -39,8 +39,8 @@ public class Viesti {
         return aika;
     }
     
-    //public Viestiketju getviestiketju() {
-    //    return viestiketju;
-    //}
+    public Viestiketju getviestiketju() {
+        return viestiketju;
+    }
     
 }

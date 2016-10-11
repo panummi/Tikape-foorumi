@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.Opiskelija;
 import tikape.runko.domain.Viesti;
+import tikape.runko.domain.Viestiketju;
 
 /**
  *
@@ -21,6 +22,7 @@ import tikape.runko.domain.Viesti;
 public class ViestiDao implements Dao<Viesti, Integer> {
     
     private Database database;
+    private Dao<Viestiketju, Integer>  viestiketjuDao;
     
     public ViestiDao(Database database) {
         this.database = database;

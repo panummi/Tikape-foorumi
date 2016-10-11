@@ -7,10 +7,17 @@
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
+        <h1>Keskustelualueet</h1>
+        
+        <p> Alue &Tab; Viestejä yhteensä &Tab; Viimeisin viesti </p>
+         <ol>
+            <li th:each="keskustelualue: ${keskustelualueet}">
+                <a th:href="${'/viestiketjut'}" > <span th:text="${keskustelualue.nimi}">keskustelualueen nimi</span> </a>
+                
+                <span th:text="${keskustelualue.nimi}">viestien määrä</span>
+                
+            </li>
+        </ol>
 
-        <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
-
-        <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
     </body>
 </html>

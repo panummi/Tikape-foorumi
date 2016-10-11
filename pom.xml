@@ -41,6 +41,12 @@
                     <target>1.8</target>
                     <optimize>true</optimize>
                     <debug>true</debug>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <mainClass>tikape.runko.Main</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>

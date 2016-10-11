@@ -1,14 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tikape.runko.domain;
 
-/**
- *
- * @author juhaphysics
- */
 public class Viestiketju {
+    private Integer tunnus;
+    private Integer aika;
+    private String otsikko;
+
+    public Viestiketju(Integer tunnus, String otsikko, Integer aika) {
+        this.aika = aika;
+        this.otsikko = otsikko;
+        this.tunnus = tunnus;
+    }
+
+    public Integer getTunnus() {
+        return tunnus;
+    }
+    
+    public Integer getAika() {
+        return aika;
+    }
+    
+
+    public String getOtsikko() {
+        return otsikko;
+    }
+
+    public void setOtsikko(String otsikko) {
+        this.otsikko = otsikko;
+    }
+
     
 }

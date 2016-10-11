@@ -11,16 +11,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import tikape.runko.domain.Keskustelualue;
 import tikape.runko.domain.Viestiketju;
 
 public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
 
     private Database database;
+    private Dao<Keskustelualue, Integer> keskustelualueDao;
 
-    public ViestiketjuDao(Database database) {
+    public ViestiketjuDao(Database database, Dao<Keskustelualue, Integer> keskustelualueDao) {
         this.database = database;
+        this.keskustelualueDao = keskustelualueDao;
     }
 
+    
     @Override
     public Viestiketju findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();

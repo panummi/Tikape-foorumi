@@ -51,9 +51,9 @@ public class Main {
             return new ModelAndView(map, "keskustelualue");
         }, new ThymeleafTemplateEngine());
 
-        get("/keskustelualue/:tunnus/:tunnus", (req, res) -> {
+        get("/keskustelualue/:tunnus/:id", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viestiketju", viestiketjuDao.findOne(Integer.parseInt(req.params("tunnus"))));
+            map.put("viestit", viestiDao.findOne(Integer.parseInt(req.params("id"))));
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
     }

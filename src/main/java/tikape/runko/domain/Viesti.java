@@ -13,18 +13,16 @@ import java.sql.Timestamp;
  */
 public class Viesti {
     
-    private Integer id;
     private String sisalto;
     private Timestamp aika;
     private String lahettaja;
     private Viestiketju viestiketju;
     
-    public Viesti(Integer id, String sisalto, String lahettaja, Timestamp aika, Viestiketju viestiketju) {//+viestiketju
-        this.id = id;
+    public Viesti(String sisalto, String lahettaja, Timestamp aika) {//+viestiketju
         this.sisalto = sisalto;
         this.lahettaja = lahettaja;
         this.aika = aika;
-        this.viestiketju = viestiketju;
+        //this.viestiketju = viestiketju;
     }
     
     public String getSisalto() {

@@ -23,8 +23,4 @@ public class Keskustelualue {
         this.nimi = nimi;
     }
     
-   // public Integer getViestit() {
-   //     return KeskustelualueDao.countViestit();
-   // }    
-    
 }

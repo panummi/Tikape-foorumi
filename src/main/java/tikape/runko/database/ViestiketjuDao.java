@@ -13,11 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.Keskustelualue;
 import tikape.runko.domain.Viestiketju;
+import java.sql.Timestamp;
+
 
 public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
 
     private Database database;
     private Dao<Keskustelualue, Integer> keskustelualueDao;
+    //private Keskustelualue keskustelualue;
 
     public ViestiketjuDao(Database database, Dao<Keskustelualue, Integer> keskustelualueDao) {
         this.database = database;
@@ -39,7 +42,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
 
         Integer tunnus = rs.getInt("tunnus");
         String otsikko = rs.getString("otsikko");
-        Integer aika = rs.getInt("aika");
+        Timestamp aika = rs.getTimestamp("aika");
 
         Viestiketju v = new Viestiketju(tunnus, otsikko, aika);
 
@@ -61,7 +64,8 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         while (rs.next()) {
             Integer id = rs.getInt("tunnus");
             String nimi = rs.getString("otsikko");
-            Integer aika = rs.getInt("aika");
+            Timestamp aika = rs.getTimestamp("aika");
+            //Keskustelualue keskustelualue = rs.(keskustelualue");
 
             viestiketjut.add(new Viestiketju(id, nimi, aika));
         }

@@ -9,19 +9,31 @@
     <body>
         <h1>Keskustelualueet</h1>
         
-        <table style="width:20%">
+        <ol>
+            <li th:each="lkm: ${viestit}">
+                <span th:text="${lkm}">opiskelijan nimi</span>
+            </li>
+        </ol>
+        
+
+        <table style="width:40%">
             <tr>
                 <th align="left">Alue</th>
-                <th align="left">Lastname</th> 
-                <th align="left">Age</th>
+                <th align="left">Viestejä yhteensä</th> 
+                <th align="left">Viimeisin viesti</th>
             </tr>
-            <tr>
-                <td th:each= "keskustelualue: ${keskustelualueet}">
-                    <a th:href="${'/viestiketjut'}" > <span th:text="${keskustelualue.nimi}">keskustelualueen nimi</span> </a>
-
-                </td>    
+            <tr th:each= "keskustelualue: ${keskustelualueet}">
+                <td> <a th:href="${'/keskustelualue/' + keskustelualue.tunnus}"> <span th:text="${keskustelualue.nimi}">keskustelualueen nimi </span> </a> </td>
+                <td th:text="${lkm}">keskustelualueen nimi</td>
+                <td th:text="${keskustelualue.tunnus}">keskustelualueen nimi</td>
             </tr>
         </table>
-
+        
+         <form method="POST" action="/">
+            Lisää keskustelualue:<br/>
+            <input type="text" name="alue"/><br/>
+         <input type="submit" value="Lähetä"/> 
+         </form>
+        
     </body>
 </html>

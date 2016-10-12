@@ -78,9 +78,6 @@ public class KeskustelualueDao implements Dao<Keskustelualue, Integer> {
         //}
         return columnValue;
     }
-    
-        
-
 
     @Override
     public void delete(Integer key) throws SQLException {

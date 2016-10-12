@@ -18,7 +18,7 @@
                 <th align="left">Viimeisin viesti</th>
             </tr>
             <tr th:each= "viestiketju: ${viestiketjut}">
-                <td> <a th:href="${'keskustelualue/' + ${tunnus}/' + viestiketju.tunnus}"> <span th:text="${viestiketju.otsikko}">keskustelualueen nimi </span> </a> </td>
+                <td> <a th:href="@{'~/keskustelualue/' + ${tunnus} + '/' +${viestiketju.tunnus}}"> <span th:text="${viestiketju.otsikko}">keskustelualueen nimi </span> </a> </td>
                 <td th:text="${viestiketju.otsikko}">keskustelualueen nimi</td>
                 <td th:text="${viestiketju.tunnus}">keskustelualueen nimi</td>
             </tr>

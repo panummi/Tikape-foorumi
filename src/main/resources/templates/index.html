@@ -23,9 +23,9 @@
                 <th align="left">Viimeisin viesti</th>
             </tr>
             <tr th:each= "keskustelualue: ${keskustelualueet}">
-                <td> <a th:href="${'/keskustelualue/' + keskustelualue.tunnus}"> <span th:text="${keskustelualue.nimi}">keskustelualueen nimi </span> </a> </td>
-                <td th:text="${lkm}">keskustelualueen nimi</td>
-                <td th:text="${keskustelualue.tunnus}">keskustelualueen nimi</td>
+                <td> <a th:href="@{'~/keskustelualue/' + ${keskustelualue.tunnus}}"> <span th:text="${keskustelualue.nimi}"> </span> </a> </td>
+                <td th:text="${lkm}"></td>
+                <td th:text="${keskustelualue.tunnus}"></td>
             </tr>
         </table>
         

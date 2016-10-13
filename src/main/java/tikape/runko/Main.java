@@ -25,8 +25,8 @@ public class Main {
         
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("keskustelualueet", keskustelualueDao.findAll());
-            List<Keskustelualue> keskustelualueet = keskustelualueDao.findAll();
+            map.put("keskustelualueet", keskustelualueDao.findAllFrom());
+            List<Keskustelualue> keskustelualueet = keskustelualueDao.findAllFrom();
             int i = 0;
             ArrayList<Integer> viestit = new ArrayList<>();
             while (i < keskustelualueet.size()) {
@@ -41,19 +41,28 @@ public class Main {
         
         post("/", (req, res) -> {
             String otsikko = req.queryParams("alue");
-            return otsikko;
+            keskustelualueDao.submitAlue(otsikko);
+            return "Lisätty alue " + otsikko + ".";
         });
         
         get("/keskustelualue/:tunnus", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viestiketjut", viestiketjuDao.findAll());
-            map.put("tunnus", req.params(":tunnus"));
+            map.put("viestiketjut", viestiketjuDao.findAll(Integer.parseInt(req.params("tunnus"))));
+            map.put("tunnus", req.params("tunnus"));
             return new ModelAndView(map, "keskustelualue");
         }, new ThymeleafTemplateEngine());
+        
+        post("/keskustelualue/:tunnus", (req, res) -> {
+            String otsikko = req.queryParams("alue");
+            System.out.println(Integer.parseInt(req.params(":tunnus")));
+            System.out.println("122");
+            viestiketjuDao.submitKetju(otsikko, (Integer.parseInt(req.params("tunnus"))));
+            return "Lisätty alue " + otsikko + ".";
+        });
 
         get("/keskustelualue/:tunnus/:id", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viestit", viestiDao.findOne(Integer.parseInt(req.params("id"))));
+            map.put("viestit", viestiDao.findAll(Integer.parseInt(req.params("id"))));
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
     }

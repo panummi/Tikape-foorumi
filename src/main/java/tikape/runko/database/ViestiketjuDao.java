@@ -54,11 +54,12 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     }
 
     @Override
-    public List<Viestiketju> findAll() throws SQLException {
+    public List<Viestiketju> findAll(Integer key) throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju");
-
+        PreparedStatement stmt = connection.prepareStatement("SELECT Viestiketju.* FROM Viestiketju, Keskustelualue WHERE Keskustelualue.tunnus = Viestiketju.keskustelualue AND Keskustelualue.tunnus = ?");
+        stmt.setObject(1, key);
+        
         ResultSet rs = stmt.executeQuery();
         List<Viestiketju> viestiketjut = new ArrayList<>();
         while (rs.next()) {
@@ -75,8 +76,21 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         connection.close();
 
         return viestiketjut;
+        
     }
 
+    
+    public void submitKetju(String name, Integer key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viestiketju (otsikko, keskustelualue) VALUES (name, key)");
+        stmt.setInt(2, key);
+        stmt.setString(1, name);
+        stmt.executeUpdate();
+        //rs.close();
+        stmt.close();
+        connection.close();
+    }
+     
     @Override
     public void delete(Integer key) throws SQLException {
         // ei toteutettu

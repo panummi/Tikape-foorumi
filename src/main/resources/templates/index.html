@@ -9,11 +9,6 @@
     <body>
         <h1>Keskustelualueet</h1>
         
-        <ol>
-            <li th:each="lkm: ${viestit}">
-                <span th:text="${lkm}">opiskelijan nimi</span>
-            </li>
-        </ol>
         
 
         <table style="width:40%">
@@ -24,7 +19,7 @@
             </tr>
             <tr th:each= "keskustelualue: ${keskustelualueet}">
                 <td> <a th:href="@{'~/keskustelualue/' + ${keskustelualue.tunnus}}"> <span th:text="${keskustelualue.nimi}"> </span> </a> </td>
-                <td th:text="${lkm}"></td>
+                <td th:text="${viestit}"></td>
                 <td th:text="${keskustelualue.tunnus}"></td>
             </tr>
         </table>

@@ -23,6 +23,12 @@
                 <td th:text="${viestiketju.tunnus}"></td>
             </tr>
         </table>
+        
+        <form method="POST" action="/keskustelualue/tunnus">
+        Lisää keskustelualue:<br/>
+        <input type="text" name="alue"/><br/>
+        <input type="submit" value="Lähetä"/> 
+        </form>
 
     </body>
 </html>

@@ -56,14 +56,15 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     @Override
     public List<Viesti> findAll(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT Viesti.* FROM Viesti, Viestiketju WHERE Viesti.viestiketju = Viestiketju.tunnus AND Viestiketju.tunnus = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT Viesti.sisältö, datetime(Viesti.aika, 'localtime'), Viesti.lähettäjä FROM Viesti, Viestiketju WHERE Viesti.viestiketju = Viestiketju.tunnus AND Viestiketju.tunnus = ?");
         stmt.setObject(1, key);
         
         ResultSet rs = stmt.executeQuery();
         List<Viesti> viestit = new ArrayList<>();
         while (rs.next()) {
             String sisalto = rs.getString("sisältö");
-            Timestamp aika = rs.getTimestamp("aika");
+            String aikaString = rs.getString("datetime(Viesti.aika, 'localtime')");
+            Timestamp aika = Timestamp.valueOf(aikaString);
             String lahettaja = rs.getString("lähettäjä");
             //Keskustelualue keskustelualue = rs.(keskustelualue");
 

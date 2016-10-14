@@ -8,12 +8,15 @@ public class Viestiketju {
     private Timestamp aika;
     private String otsikko;
     private Keskustelualue keskustelualue; 
+    private Integer viestienMaara;
+    private Timestamp viimeisinViesti;
 
-    public Viestiketju(Integer tunnus, String otsikko, Timestamp aika) {
+    public Viestiketju(Integer tunnus, String otsikko, Timestamp aika, Integer viestienMaara, Timestamp viimeisinViesti) {
         this.aika = aika;
         this.otsikko = otsikko;
         this.tunnus = tunnus;
-        //this.keskustelualue = keskustelualue;
+        this.viestienMaara = viestienMaara;
+        this.viimeisinViesti = viimeisinViesti;
     }
 
     public Integer getTunnus() {
@@ -35,6 +38,24 @@ public class Viestiketju {
     public Keskustelualue getKeskustelualue() {
         return keskustelualue;
     }
+    
+    public Integer getViestienMaara() {
+        return viestienMaara;
+    }
+    
+    public void setViestienMaara(Integer viestienMaara) {
+        this.viestienMaara = viestienMaara;
+        System.out.println(this.viestienMaara);
+    }
+    
+    public Timestamp getViimeisinViesti() {
+        return viimeisinViesti;
+    }
+    
+    public void setViimeisinViesti(Timestamp viimeisinViesti) {
+        this.viimeisinViesti = viimeisinViesti;
+    }
+    
 
     
 }

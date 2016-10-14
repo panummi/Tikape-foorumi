@@ -19,8 +19,10 @@
             </tr>
             <tr th:each= "viestiketju: ${viestiketjut}">
                 <td> <a th:href="@{'~/keskustelualue/' + ${tunnus} + '/' +${viestiketju.tunnus}}"> <span th:text="${viestiketju.otsikko}"></span> </a> </td>
-                <td th:text="${viestiketju.otsikko}"></td>
-                <td th:text="${viestiketju.tunnus}"></td>
+                <td th:text="${viestiketju.viestienMaara}"></td>
+                <td th:if="${viestiketju.viimeisinViesti != null}"><span th:text="${viestiketju.viimeisinViesti}"></span> </td>
+                <td th:unless="${viestiketju.viimeisinViesti != null}"><span>Ei viestejä viestiketjussa</span></td>
+
             </tr>
         </table>
         

@@ -8,10 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.Keskustelualue;
+import java.sql.Timestamp;
 
 public class KeskustelualueDao implements Dao<Keskustelualue, Integer> {
 
     private Database database;
+    private Keskustelualue keskustelualue;
 
     public KeskustelualueDao(Database database) {
         this.database = database;
@@ -31,8 +33,10 @@ public class KeskustelualueDao implements Dao<Keskustelualue, Integer> {
 
         Integer tunnus = rs.getInt("tunnus");
         String nimi = rs.getString("nimi");
+        Integer luku = countViestit(tunnus);
+        Timestamp viimeisinViesti = viimeisinViesti(tunnus);
 
-        Keskustelualue k = new Keskustelualue(tunnus, nimi);
+        Keskustelualue k = new Keskustelualue(tunnus, nimi, luku, viimeisinViesti);
 
         rs.close();
         stmt.close();
@@ -52,8 +56,10 @@ public class KeskustelualueDao implements Dao<Keskustelualue, Integer> {
         while (rs.next()) {
             Integer tunnus = rs.getInt("tunnus");
             String nimi = rs.getString("nimi");
+            Integer luku = countViestit(tunnus);
+            Timestamp viimeisinViesti = viimeisinViesti(tunnus);
 
-            keskustelualueet.add(new Keskustelualue(tunnus, nimi));
+            keskustelualueet.add(new Keskustelualue(tunnus, nimi, luku, viimeisinViesti));
         }
 
         rs.close();
@@ -72,19 +78,33 @@ public class KeskustelualueDao implements Dao<Keskustelualue, Integer> {
     
     
         //@Override
-    public Integer countViestit(Integer key) throws SQLException {
+    public Integer countViestit(Integer tunnus) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM Viesti, Viestiketju, Keskustelualue WHERE Viesti.viestiketju = Viestiketju.tunnus AND Viestiketju.keskustelualue = Keskustelualue.tunnus AND Keskustelualue.tunnus = ?");
-        stmt.setInt(1, key);
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM Viesti, Viestiketju, Keskustelualue WHERE Viesti.viestiketju = Viestiketju.tunnus AND Viestiketju.keskustelualue = Keskustelualue.tunnus AND Keskustelualue.tunnus =" + tunnus);
         ResultSet rs = stmt.executeQuery();
         Integer luku = rs.getInt(1);
         rs.close();
         stmt.close();
         connection.close();
-        //if (columnValue == null) {
-        //    return 0;
-        //}
         return luku;
+        
+    }
+    
+    public Timestamp viimeisinViesti(Integer tunnus) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT datetime(Viesti.aika, 'localtime') FROM Viesti, Viestiketju, Keskustelualue WHERE Viesti.viestiketju = Viestiketju.tunnus AND Viestiketju.keskustelualue = Keskustelualue.tunnus AND Keskustelualue.tunnus =" + tunnus + " ORDER BY Viesti.aika DESC LIMIT 1");
+        ResultSet rs = stmt.executeQuery();
+        if (!rs.isBeforeFirst() ) {    
+            return null;
+        } 
+        String viestiString = rs.getString(1);
+        Timestamp viimeisinViesti = Timestamp.valueOf(viestiString);
+        //Timestamp viimeisinViesti = rs.getTimestamp(1);
+        rs.close();
+        stmt.close();
+        connection.close();
+        return viimeisinViesti;
+        
     }
 
     @Override

@@ -43,8 +43,10 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         Integer tunnus = rs.getInt("tunnus");
         String otsikko = rs.getString("otsikko");
         Timestamp aika = rs.getTimestamp("aika");
+        Integer luku = countViestit(tunnus);
+        Timestamp viimeisinViesti = viimeisinViesti(tunnus);
 
-        Viestiketju v = new Viestiketju(tunnus, otsikko, aika);
+        Viestiketju v = new Viestiketju(tunnus, otsikko, aika, luku, viimeisinViesti);
 
         rs.close();
         stmt.close();
@@ -66,9 +68,10 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
             Integer id = rs.getInt("tunnus");
             String nimi = rs.getString("otsikko");
             Timestamp aika = rs.getTimestamp("aika");
-            //Keskustelualue keskustelualue = rs.(keskustelualue");
+            Integer luku = countViestit(id);
+            Timestamp viimeisinViesti = viimeisinViesti(id);
 
-            viestiketjut.add(new Viestiketju(id, nimi, aika));
+            viestiketjut.add(new Viestiketju(id, nimi, aika, luku, viimeisinViesti));
         }
 
         rs.close();
@@ -95,6 +98,31 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public void delete(Integer key) throws SQLException {
         // ei toteutettu
     }
-
     
+    public Integer countViestit(Integer tunnus) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*)  FROM Viesti, Viestiketju WHERE Viestiketju.tunnus = Viesti.viestiketju AND Viestiketju.tunnus =" + tunnus);
+        ResultSet rs = stmt.executeQuery();
+        Integer luku = rs.getInt(1);
+        rs.close();
+        stmt.close();
+        connection.close();
+        return luku;
+    }
+    
+    public Timestamp viimeisinViesti(Integer tunnus) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT datetime(Viesti.aika, 'localtime') FROM Viesti, Viestiketju WHERE Viesti.viestiketju = Viestiketju.tunnus  AND Viestiketju.tunnus =" + tunnus + " ORDER BY Viesti.aika DESC LIMIT 1");
+        ResultSet rs = stmt.executeQuery();
+        if (!rs.isBeforeFirst() ) {    
+            return null;
+        } 
+        String viestiString = rs.getString(1);
+        Timestamp viimeisinViesti = Timestamp.valueOf(viestiString);
+        //Timestamp viimeisinViesti = rs.getTimestamp(1);
+        rs.close();
+        stmt.close();
+        connection.close();
+        return viimeisinViesti;
+    }    
 }

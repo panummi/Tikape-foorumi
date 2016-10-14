@@ -85,9 +85,11 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     
     public void submitKetju(String name, Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viestiketju (otsikko, keskustelualue) VALUES (name, key)");
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viestiketju (otsikko, keskustelualue, aika) VALUES (?, ?, ?)");
+        Timestamp lisays = new Timestamp(System.currentTimeMillis());
         stmt.setInt(2, key);
         stmt.setString(1, name);
+        stmt.setTimestamp(3, lisays);
         stmt.executeUpdate();
         //rs.close();
         stmt.close();

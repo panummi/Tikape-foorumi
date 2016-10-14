@@ -78,6 +78,20 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         return viestit;
     }
     
+    
+    public void submitViesti(Integer viestiketju, String sisalto, String lahettaja) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viesti (viestiketju, sisältö, lähettäjä) VALUES (?, ?, ?)");
+        Timestamp lisays = new Timestamp(System.currentTimeMillis());
+        stmt.setInt(1, viestiketju);
+        stmt.setString(2, sisalto);
+        stmt.setString(3, lahettaja);
+        stmt.executeUpdate();
+        //rs.close();
+        stmt.close();
+        connection.close();
+    }
+    
     @Override
     public void delete(Integer key) throws SQLException {
         // ei toteutettu

@@ -65,7 +65,7 @@ public class KeskustelualueDao implements Dao<Keskustelualue, Integer> {
         rs.close();
         stmt.close();
         connection.close();
-
+        
         return keskustelualueet;
     }
     

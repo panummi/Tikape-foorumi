@@ -26,10 +26,10 @@
             </tr>
         </table>
         
-        <form method="POST" action="/keskustelualue/tunnus">
-        Lisää keskustelualue:<br/>
-        <input type="text" name="alue"/><br/>
-        <input type="submit" value="Lähetä"/> 
+        <form method="POST" th:action="@{'~/keskustelualue/' + ${tunnus}}">
+            Lisää viestiketju:<br/>
+            <input type="text" name="alue"/><br/>
+            <input type="submit" value="Lähetä"/> 
         </form>
 
     </body>

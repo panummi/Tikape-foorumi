@@ -16,6 +16,16 @@
                 <span th:text="${viesti.sisalto}"></span>
             </li>
         </ol>
-
+        
+        <form method="POST" th:action="@{'~/keskustelualue/' + ${tunnus} + '/' + ${id}}">
+            Lisää viesti:<br/>
+            <br/>
+            <label>Viesti:</label><br/>
+            <input type="text" name="viesti"/><br/>
+            <label>Lähettäjä:</label><br/>
+            <input type="text" name="lahettaja"/><br/>
+            <input type="submit" value="Lähetä"/> 
+        </form>
+        
     </body>
 </html>

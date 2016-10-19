@@ -97,4 +97,28 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         // ei toteutettu
     }
     
+    public List<Viesti> findPage(Integer key, Integer tunnus) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti WHERE Viesti.viestiketju = " + tunnus + " ORDER BY aika LIMIT 10 OFFSET (" + key + " - 1) * 10");
+        
+        ResultSet rs = stmt.executeQuery();
+        List<Viesti> viestit = new ArrayList<>();
+        while (rs.next()) {
+            String sisalto = rs.getString("sisältö");
+            String aikaString = rs.getString("aika");
+            Timestamp aika = Timestamp.valueOf(aikaString);
+            String lahettaja = rs.getString("lähettäjä");
+            //Keskustelualue keskustelualue = rs.(keskustelualue");
+
+            viestit.add(new Viesti(sisalto, lahettaja, aika));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return viestit;
+        
+    }
+    
 }

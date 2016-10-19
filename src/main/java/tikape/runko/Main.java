@@ -55,11 +55,12 @@ public class Main {
             return "ok";
         });
 
-        get("/keskustelualue/:tunnus/:id", (req, res) -> {
+        get("/keskustelualue/:tunnus/:id/:sivu", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viestit", viestiDao.findAll(Integer.parseInt(req.params("id"))));
+            map.put("viestit", viestiDao.findPage(Integer.parseInt(req.params("sivu")), Integer.parseInt(req.params("id"))));
             map.put("id", req.params("id"));
             map.put("tunnus", req.params("tunnus"));
+            map.put("sivu", (Integer.parseInt(req.params("sivu")) + 1));
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
         

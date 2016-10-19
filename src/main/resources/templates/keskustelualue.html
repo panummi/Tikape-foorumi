@@ -18,7 +18,7 @@
                 <th align="left">Viimeisin viesti</th>
             </tr>
             <tr th:each= "viestiketju: ${viestiketjut}">
-                <td> <a th:href="@{'~/keskustelualue/' + ${tunnus} + '/' +${viestiketju.tunnus}}"> <span th:text="${viestiketju.otsikko}"></span> </a> </td>
+                <td> <a th:href="@{'~/keskustelualue/' + ${tunnus} + '/' +${viestiketju.tunnus}} + '/' + 1"> <span th:text="${viestiketju.otsikko}"></span> </a> </td>
                 <td th:text="${viestiketju.viestienMaara}"></td>
                 <td th:if="${viestiketju.viimeisinViesti != null}"><span th:text="${viestiketju.viimeisinViesti}"></span> </td>
                 <td th:unless="${viestiketju.viimeisinViesti != null}"><span>Ei viestejä viestiketjussa</span></td>
@@ -29,11 +29,11 @@
         <form method="POST" th:action="@{'~/keskustelualue/' + ${tunnus}}">
             Lisää viestiketju:<br/>
             <label>Otsikko:</label><br/>
-            <input type="text" name="alue"/><br/>
+            <input type="text" name="alue" th:required="required"/><br/>
             <label>Avausviesti:</label><br/>
-            <input type="text" name="viesti"/><br/>
+            <input type="text" name="viesti" th:required="required" /><br/>
             <label>Lähettäjä:</label><br/>
-            <input type="text" name="lahettaja"/><br/>
+            <input type="text" name="lahettaja" th:required="required" /><br/>
             <input type="submit" value="Lähetä"/> 
         </form>
         

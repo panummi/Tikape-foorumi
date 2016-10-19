@@ -11,20 +11,22 @@
     <body>
         <h1>Viestit</h1>
         
-         <ol>
+         <ul>
             <li th:each="viesti: ${viestit}">
                 <span th:text="${viesti.sisalto}"></span> t. <span th:text="${viesti.lahettaja}"></span>
             </li>
-        </ol>
+        </ul>
+        
+         <a th:href="@{~/keskustelualue/{tunnus}/{id}/{uusiSivu}(tunnus=${tunnus}, id=${id}, uusiSivu=${sivu})}"> Seuraavat viestit </a>
         
         <form method="POST" th:action="@{'~/keskustelualue/' + ${tunnus} + '/' + ${id}}">
             Lisää viesti:<br/>
             <br/>
             <label>Viesti:</label><br/>
-            <input type="text" name="viesti"/><br/>
+            <input type="text" name="viesti" th:required="required"/><br/>
             <label>Lähettäjä:</label><br/>
-            <input type="text" name="lahettaja"/><br/>
-            <input type="submit" value="Lähetä"/> 
+            <input type="text" name="lahettaja" th:required="required"/><br/>
+            <input type="submit" value="Lähetä"/>
         </form>
         
     </body>

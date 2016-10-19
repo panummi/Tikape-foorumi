@@ -59,7 +59,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public List<Viestiketju> findAll(Integer key) throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT Viestiketju.* FROM Viestiketju, Keskustelualue, Viesti WHERE Keskustelualue.tunnus = Viestiketju.keskustelualue AND Viestiketju.tunnus = Viesti.viestiketju AND Keskustelualue.tunnus = ? GROUP BY Viestiketju.otsikko ORDER BY Viesti.aika LIMIT 10");
+        PreparedStatement stmt = connection.prepareStatement("SELECT Viestiketju.* FROM Viestiketju, Keskustelualue, Viesti WHERE Keskustelualue.tunnus = Viestiketju.keskustelualue AND Viestiketju.tunnus = Viesti.viestiketju AND Keskustelualue.tunnus = ? GROUP BY Viestiketju.otsikko ORDER BY Viesti.aika  DESC LIMIT 10");
         stmt.setObject(1, key);
         
         ResultSet rs = stmt.executeQuery();

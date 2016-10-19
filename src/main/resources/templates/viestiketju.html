@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title>Viestit</title>
         <meta charset="utf-8" />
     </head>
 
@@ -13,7 +13,7 @@
         
          <ol>
             <li th:each="viesti: ${viestit}">
-                <span th:text="${viesti.sisalto}"></span>
+                <span th:text="${viesti.sisalto}"></span> t. <span th:text="${viesti.lahettaja}"></span>
             </li>
         </ol>
         

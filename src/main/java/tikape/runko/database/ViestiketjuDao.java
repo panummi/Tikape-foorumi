@@ -59,7 +59,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public List<Viestiketju> findAll(Integer key) throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT Viestiketju.* FROM Viestiketju, Keskustelualue WHERE Keskustelualue.tunnus = Viestiketju.keskustelualue AND Keskustelualue.tunnus = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT Viestiketju.* FROM Viestiketju, Keskustelualue, Viesti WHERE Keskustelualue.tunnus = Viestiketju.keskustelualue AND Viestiketju.tunnus = Viesti.viestiketju AND Keskustelualue.tunnus = ? GROUP BY Viestiketju.otsikko ORDER BY Viesti.aika LIMIT 10");
         stmt.setObject(1, key);
         
         ResultSet rs = stmt.executeQuery();
@@ -126,5 +126,17 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         stmt.close();
         connection.close();
         return viimeisinViesti;
-    }    
+    }
+
+    public Integer findLatest() throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju ORDER BY tunnus DESC LIMIT 1");
+        ResultSet rs = stmt.executeQuery();
+        Integer luku = rs.getInt(1);
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return luku;
+    }
 }

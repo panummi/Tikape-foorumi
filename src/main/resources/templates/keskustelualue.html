@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title>Viestiketjut alueella</title>
         <meta charset="utf-8" />
     </head>
     
@@ -28,9 +28,16 @@
         
         <form method="POST" th:action="@{'~/keskustelualue/' + ${tunnus}}">
             Lisää viestiketju:<br/>
+            <label>Otsikko:</label><br/>
             <input type="text" name="alue"/><br/>
+            <label>Avausviesti:</label><br/>
+            <input type="text" name="viesti"/><br/>
+            <label>Lähettäjä:</label><br/>
+            <input type="text" name="lahettaja"/><br/>
             <input type="submit" value="Lähetä"/> 
         </form>
+        
+        
 
     </body>
 </html>

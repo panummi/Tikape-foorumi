@@ -22,7 +22,7 @@ public class KeskustelualueDao implements Dao<Keskustelualue, Integer> {
     @Override
     public Keskustelualue findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelualue WHERE tunnus = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelualue WHERE tunnus = ? ");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -49,7 +49,7 @@ public class KeskustelualueDao implements Dao<Keskustelualue, Integer> {
     public List<Keskustelualue> findAllFrom() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelualue");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Keskustelualue ORDER BY nimi");
 
         ResultSet rs = stmt.executeQuery();
         List<Keskustelualue> keskustelualueet = new ArrayList<>();

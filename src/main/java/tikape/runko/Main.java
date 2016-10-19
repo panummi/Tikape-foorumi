@@ -38,16 +38,19 @@ public class Main {
             return new ModelAndView(map, "keskustelualue");
         }, new ThymeleafTemplateEngine());
         
-        get("/keskustelualue/:tunnus", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("viestiketjut", viestiketjuDao.findAll(Integer.parseInt(req.params("tunnus"))));
-            map.put("tunnus", req.params("tunnus"));
-            return new ModelAndView(map, "keskustelualue");
-        }, new ThymeleafTemplateEngine());
+//        get("/keskustelualue/:tunnus", (req, res) -> {
+//            HashMap map = new HashMap<>();
+//            map.put("viestiketjut", viestiketjuDao.findAll(Integer.parseInt(req.params("tunnus"))));
+//            map.put("tunnus", req.params("tunnus"));
+//            return new ModelAndView(map, "keskustelualue");
+//        }, new ThymeleafTemplateEngine());
         
         post("/keskustelualue/:tunnus", (req, res) -> {
+            String viesti = req.queryParams("viesti");
+            String lahettaja = req.queryParams("lahettaja");
             String otsikko = req.queryParams("alue");
             viestiketjuDao.submitKetju(otsikko, (Integer.parseInt(req.params("tunnus"))));
+            viestiDao.submitViesti(viestiketjuDao.findLatest(), viesti, lahettaja);
             res.redirect("/keskustelualue/" + req.params("tunnus"));
             return "ok";
         });

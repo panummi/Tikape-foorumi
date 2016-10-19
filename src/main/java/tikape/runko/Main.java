@@ -13,6 +13,11 @@ import tikape.runko.database.ViestiketjuDao;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        
+        if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
+        
         Database database = new Database("jdbc:sqlite:keskustelualueet.db");
         KeskustelualueDao keskustelualueDao = new KeskustelualueDao(database);
         ViestiketjuDao viestiketjuDao = new ViestiketjuDao(database, keskustelualueDao);

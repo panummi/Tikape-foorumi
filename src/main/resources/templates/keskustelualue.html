@@ -3,22 +3,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Viestiketjut alueella</title>
+        <title th:text="${alue.nimi}" ></title>
         <meta charset="utf-8" />
     </head>
     
     <body>
-        <h1>Viestiketjut alueella</h1>
+        <h1>Viestiketjut alueella  <span th:text="${alue.nimi}"></span></h1>
 
         
         <table style="width:40%">
             <tr>
-                <th align = "left"> <p>Alue: <span th:text="${tunnus}">tunnus</span> </p> </th>
+                <th align = "left"> <p>Alue: <span th:text="${alue.nimi}">tunnus</span> </p> </th>
                 <th align="left">Viestejä</th> 
                 <th align="left">Viimeisin viesti</th>
             </tr>
             <tr th:each= "viestiketju: ${viestiketjut}">
-                <td> <a th:href="@{'~/keskustelualue/' + ${tunnus} + '/' +${viestiketju.tunnus}} + '/' + 1"> <span th:text="${viestiketju.otsikko}"></span> </a> </td>
+                <td> <a th:href="@{'~/keskustelualue/' + ${alue.tunnus} + '/' +${viestiketju.tunnus}} + '/' + 1"> <span th:text="${viestiketju.otsikko}"></span> </a> </td>
                 <td th:text="${viestiketju.viestienMaara}"></td>
                 <td th:if="${viestiketju.viimeisinViesti != null}"><span th:text="${viestiketju.viimeisinViesti}"></span> </td>
                 <td th:unless="${viestiketju.viimeisinViesti != null}"><span>Ei viestejä viestiketjussa</span></td>
@@ -26,8 +26,11 @@
             </tr>
         </table>
         
-        <form method="POST" th:action="@{'~/keskustelualue/' + ${tunnus}}">
+        <br/>
+        
+        <form method="POST" th:action="@{'~/keskustelualue/' + ${alue.tunnus}}">
             Lisää viestiketju:<br/>
+            <br/>
             <label>Otsikko:</label><br/>
             <input type="text" name="alue" th:required="required"/><br/>
             <label>Avausviesti:</label><br/>
@@ -36,6 +39,10 @@
             <input type="text" name="lahettaja" th:required="required" /><br/>
             <input type="submit" value="Lähetä"/> 
         </form>
+        
+        <br/>
+        <a th:href="@{~/}" > Takaisin keskustelualuevalikkoon </a> 
+       
         
         
 

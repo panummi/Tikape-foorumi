@@ -39,16 +39,9 @@ public class Main {
         get("/keskustelualue/:tunnus", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("viestiketjut", viestiketjuDao.findAll(Integer.parseInt(req.params("tunnus"))));
-            map.put("tunnus", req.params("tunnus"));
+            map.put("alue", keskustelualueDao.findOne(Integer.parseInt(req.params("tunnus"))));
             return new ModelAndView(map, "keskustelualue");
         }, new ThymeleafTemplateEngine());
-        
-//        get("/keskustelualue/:tunnus", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("viestiketjut", viestiketjuDao.findAll(Integer.parseInt(req.params("tunnus"))));
-//            map.put("tunnus", req.params("tunnus"));
-//            return new ModelAndView(map, "keskustelualue");
-//        }, new ThymeleafTemplateEngine());
         
         post("/keskustelualue/:tunnus", (req, res) -> {
             String viesti = req.queryParams("viesti");
@@ -64,8 +57,8 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("viestit", viestiDao.findPage(Integer.parseInt(req.params("sivu")), Integer.parseInt(req.params("id"))));
             map.put("seuraavatViestit", viestiDao.findPage((Integer.parseInt(req.params("sivu")) + 1), Integer.parseInt(req.params("id"))));
-            map.put("id", req.params("id"));
-            map.put("tunnus", req.params("tunnus"));
+            map.put("alue", keskustelualueDao.findOne(Integer.parseInt(req.params("tunnus"))));
+            map.put("ketju", viestiketjuDao.findOne(Integer.parseInt(req.params("id"))));
             map.put("sivu", (Integer.parseInt(req.params("sivu"))));
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());

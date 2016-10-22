@@ -4,18 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Viestit</title>
+        <title th:text="${ketju.otsikko}"></title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Viestit</h1>
+        <h1 th:text="${ketju.otsikko}"></h1>
+        <h3> Alue: <span th:text="${alue.nimi}" > </span> </h3>
         
          <ul>
             <li th:each="viesti: ${viestit}">
                 <span th:text="${viesti.sisalto}"></span> t. <span th:text="${viesti.lahettaja}"></span>
             </li>
         </ul>
+        
         
         <table style="width:30%">
             <tr>
@@ -28,7 +30,7 @@
         <br/>
          
          
-        <form method="POST" th:action="@{'~/keskustelualue/' + ${tunnus} + '/' + ${id} + '/' + ${sivu}}">
+        <form method="POST" th:action="@{'~/keskustelualue/' + ${alue.tunnus} + '/' + ${ketju.tunnus} + '/' + ${sivu}}">
             Lisää viesti:<br/>
             <br/>
             <label>Viesti:</label><br/>
@@ -37,6 +39,9 @@
             <input type="text" name="lahettaja" th:required="required"/><br/>
             <input type="submit" value="Lähetä"/>
         </form>
+        
+        <br/>
+        <a th:href="@{'~/keskustelualue/' + ${alue.tunnus}}" > Takaisin keskustelualueelle <span th:text="${alue.nimi}" ></span> </a> 
         
     </body>
 </html>

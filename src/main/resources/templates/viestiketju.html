@@ -21,9 +21,9 @@
         
         <table style="width:30%">
             <tr>
-                <td th:if="${sivu != 1}"><a th:href="@{~/keskustelualue/{tunnus}/{id}/{uusiSivu}(tunnus=${tunnus}, id=${id}, uusiSivu=(${sivu} -1 ))}"> &#8592; Edelliset viestit </a> </td>
+                <td th:if="${sivu != 1}"><a th:href="@{~/keskustelualue/{tunnus}/{id}/{uusiSivu}(tunnus=${alue.tunnus}, id=${ketju.tunnus}, uusiSivu=(${sivu} -1 ))}"> &#8592; Edelliset viestit </a> </td>
                 <td th:if="${sivu == 1}">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
-                <td th:if="${not #lists.isEmpty(seuraavatViestit)}"><a th:href="@{~/keskustelualue/{tunnus}/{id}/{uusiSivu}(tunnus=${tunnus}, id=${id}, uusiSivu=(${sivu} +1 ))}"> Seuraavat viestit &#8594; </a> </td>
+                <td th:if="${not #lists.isEmpty(seuraavatViestit)}"><a th:href="@{~/keskustelualue/{tunnus}/{id}/{uusiSivu}(tunnus=${alue.tunnus}, id=${ketju.tunnus}, uusiSivu=(${sivu} +1 ))}"> Seuraavat viestit &#8594; </a> </td>
             </tr>
         </table>  
         
